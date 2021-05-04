@@ -1,4 +1,20 @@
-<p>Slot data</p>
-<h2>Checked {{checkedCount}} number of times</h2>
-<button (click)="play()">Play</button>
-{{availabledata| json}}
+<div class="container">
+    <h1>Check CoWIN vaccine center(s) availability
+    </h1>
+    <p>Checked {{checkedCount}} number of times</p>
+    <p-dropdown [options]="allStates" [(ngModel)]="selectedState" (onChange)="onStateSelect()"
+     optionLabel="state_name" [filter]="true" filterBy="state_name"
+     [showClear]="true" placeholder="Select a State">
+    </p-dropdown>
+    <p-dropdown [options]="allCities" [(ngModel)]="selectedCity"
+     optionLabel="district_name"
+     [filter]="true" filterBy="district_name"
+     [showClear]="true" placeholder="Select a City"
+     ></p-dropdown>
+    {{selectedCity | json}}
+    <p-button label="Search" icon="pi pi-search" (click)="checkSlot()" [loading]="isLoading"></p-button>
+
+    <!-- <button (click)="play()">Play</button> -->
+    {{availabledata| json}}
+</div>
+<h2></h2>
