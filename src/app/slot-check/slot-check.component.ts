@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { interval } from 'rxjs/internal/observable/interval';
 import { SlotService } from '../services/slot.service';
+// import { interval } from 'rxjs/observable/interval';
 
 @Component({
   selector: 'app-slot-check',
@@ -13,11 +15,15 @@ export class SlotCheckComponent implements OnInit {
   ngOnInit(): void {
     this.checkSlot();
    
+    interval(30000).subscribe(() =>{
+      console.log('interval ');
+      this.checkSlot();
+    }) // do something)
+
   }
   slotData: any;
   availabledata: any[] = [];
   checkSlot() {
-
     this.slotService.getSlot('446', '11-05-2021').subscribe((data) => {
       this.checkedCount++;
       console.log(data);
@@ -33,23 +39,22 @@ export class SlotCheckComponent implements OnInit {
       this.slotData.centers.forEach((eachHospital: HospitalData) => {
         if (eachHospital.fee_type == "Free") {
           eachHospital.sessions.forEach((eachSession: { available_capacity: number;min_age_limit:number }) => {
-            // if (eachSession.vaccine == 'COVISHIELD') {
-            //   this.availabledata.push(eachHospital)
-            // }
+          
             if (eachSession.available_capacity > 0 && eachSession.min_age_limit==18) {
               this.play();
               this.availabledata.push(eachHospital);
+              console.log('found a center')
             }
           });
         }
 
       });
     }
-    let self = this;
-    setInterval(function () {
-      self.checkSlot();
-      // your code goes here...
-    }, 60 * 1000);
+    // let self = this;
+    // setInterval(function () {
+    //   self.checkSlot();
+    //   // your code goes here...
+    // }, 60 * 1000);
 
   }
   play() {
