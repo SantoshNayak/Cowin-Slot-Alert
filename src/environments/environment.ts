@@ -3,9 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiUrl:'https://cdn-api.co-vin.in/api/v2/'
 };
-
+// /appointment/sessions/calendarByDistrict?district_id=446&date=04-05-2021
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
