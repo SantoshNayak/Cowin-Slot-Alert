@@ -1,18 +1,23 @@
-<div class="container">
+<div class="container text-center">
     <h1>Check CoWIN vaccine center(s) availability
     </h1>
     <p>Checked {{checkedCount}} number of times</p>
-    <p-dropdown [options]="allStates" [(ngModel)]="selectedState" (onChange)="onStateSelect()"
+    <img src="../../assets/img/Vaccine-rafiki.png" class="vac-img" alt="">
+    <p-dropdown [options]="allStates" [(ngModel)]="selectedState" class="m-5" (onChange)="onStateSelect()"
      optionLabel="state_name" [filter]="true" filterBy="state_name"
      [showClear]="true" placeholder="Select a State">
     </p-dropdown>
-    <p-dropdown [options]="allCities" [(ngModel)]="selectedCity"
+    <p-dropdown [options]="allCities"  class="m-5" [(ngModel)]="selectedCity"
      optionLabel="district_name"
      [filter]="true" filterBy="district_name"
      [showClear]="true" placeholder="Select a City"
      ></p-dropdown>
     {{selectedCity | json}}
-    <p-button label="Search" icon="pi pi-search" (click)="checkSlot()" [loading]="isLoading"></p-button>
+
+  
+    <div class="search">
+        <p-button label="Search" icon="pi pi-search"  class="m-5" (click)="checkSlot()" [loading]="isLoading"></p-button>
+    </div>
 
     <!-- <button (click)="play()">Play</button> -->
     {{availabledata| json}}

@@ -23,12 +23,12 @@ export class SlotCheckComponent implements OnInit {
     let self=this;
     // this.checkSlot();
     this.getStates();
-    setInterval(function(){ 
-      if(self.autoClick){
-        self.checkSlot();
+    interval(30000).subscribe(() => {
+      console.log('interval ');
+      if(this.autoClick){
+        this.checkSlot();
       }
-      // $("#myBtn").click();
-   },2000);
+    }) 
 
   }
   slotData: any;
@@ -70,10 +70,7 @@ export class SlotCheckComponent implements OnInit {
     //   self.checkSlot();
     //   // your code goes here...
     // }, 60 * 1000);
-    interval(30000).subscribe(() => {
-      console.log('interval ');
-      this.checkSlot();
-    }) // do something)
+ // do something)
   }
   play() {
     var audio = new Audio('https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3');
