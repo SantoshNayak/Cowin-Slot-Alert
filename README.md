@@ -2,8 +2,10 @@
 
 Access the live script at https://santoshnayak.github.io/Cowin-Slot-Alert/
 
+![alt text](https://s3.amazonaws.com/kare4u.provider.images/others/cowin.PNG)
 
 
+![alt text](https://s3.amazonaws.com/kare4u.provider.images/others/cowin2.PNG)
 
 
 
