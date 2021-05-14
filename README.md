@@ -1,6 +1,14 @@
 # COVIDVACCINATION
 
 Access the live script at https://santoshnayak.github.io/Cowin-Slot-Alert/
+
+![alt text](https://s3.amazonaws.com/kare4u.provider.images/others/cowin.PNG)
+
+
+![alt text](https://s3.amazonaws.com/kare4u.provider.images/others/cowin2.PNG)
+
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.5.
 
 ## Development server
