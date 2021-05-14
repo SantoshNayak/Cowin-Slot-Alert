@@ -5,11 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SlotCheckComponent } from './slot-check/slot-check.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
-import { TableModule } from 'primeng/table';
-import { DropdownModule } from 'primeng/dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-import {ButtonModule} from 'primeng/button';
+import { AngularPrimengModule } from './shared/modules/angular-primeng/angular-primeng.module';
 
 @NgModule({
   declarations: [
@@ -19,12 +17,10 @@ import {ButtonModule} from 'primeng/button';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
-    TableModule,
-    DropdownModule,
+    HttpClientModule,   
     BrowserAnimationsModule,
     FormsModule,
-    ButtonModule
+    AngularPrimengModule
     
   ],
   providers: [],

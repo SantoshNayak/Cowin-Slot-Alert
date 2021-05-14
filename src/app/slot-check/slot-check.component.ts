@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 import { interval } from 'rxjs/internal/observable/interval';
 import { SlotService } from '../services/slot.service';
 // import { interval } from 'rxjs/observable/interval';
@@ -17,36 +18,49 @@ export class SlotCheckComponent implements OnInit {
   allCities: any;
   selectedCity: any
   isLoading: boolean = false;
+  autoClick: boolean = false;
+  categories: any[] = [{ name: '18+', key: '18' }, { name: '45+', key: '45' },
+  ];
+  startDate:string ='';
+  selectedAgeGroup: any;
+  cols = [
+    { field: 'name', header: 'Name' },
+    { field: 'address', header: 'Address' },
+    { field: 'block_name', header: 'Block Name' },
+    { field: 'available_capacity', header: 'Capacity' },
+    // { field: 'fee_type', header: 'Fee' },
+];
 
-  autoClick:boolean=false;
   ngOnInit(): void {
-    let self=this;
+    this.startDate=moment(new Date()).format("DD-MM-YYYY")
+    let self = this;
     // this.checkSlot();
     this.getStates();
     interval(30000).subscribe(() => {
       console.log('interval ');
-      if(this.autoClick){
+      if (this.autoClick) {
         this.checkSlot();
       }
-    }) 
+    })
 
   }
   slotData: any;
   availabledata: any[] = [];
   checkSlot() {
-    this.isLoading=true;
-    this.autoClick=true;
-    this.slotService.getSlot(this.selectedCity.district_id, '11-05-2021').subscribe((data) => {
+    this.isLoading = true;
+    this.autoClick = true;
+    this.slotService.getSlot(this.selectedCity.district_id, this.startDate).subscribe((data) => {
       this.checkedCount++;
       console.log(data);
       this.slotData = data;
-      this.isLoading=false;
+      this.isLoading = false;
+      this.availabledata=[]
       this.findAvailableSlot();
     }, (error) => {
 
     })
 
- 
+
   }
 
   findAvailableSlot() {
@@ -55,10 +69,18 @@ export class SlotCheckComponent implements OnInit {
         if (eachHospital.fee_type == "Free") {
           eachHospital.sessions.forEach((eachSession: { available_capacity: number; min_age_limit: number }) => {
 
-            if (eachSession.available_capacity > 0 && eachSession.min_age_limit == 18) {
+            if (eachSession.available_capacity > 0 && eachSession.min_age_limit == this.selectedAgeGroup.key) {
               this.play();
               this.availabledata.push(eachHospital);
-              console.log('found a center')
+              console.log('found a center');
+              this.autoClick=false;
+              //Get availability count
+              if(eachHospital.available_capacity){
+                eachHospital["available_capacity"]=eachHospital.available_capacity+eachSession.available_capacity;
+              }else{
+                eachHospital["available_capacity"]=eachSession.available_capacity;
+
+              }
             }
           });
         }
@@ -70,10 +92,10 @@ export class SlotCheckComponent implements OnInit {
     //   self.checkSlot();
     //   // your code goes here...
     // }, 60 * 1000);
- // do something)
+    // do something)
   }
   play() {
-    var audio = new Audio('https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3');
+    var audio = new Audio('https://s3.amazonaws.com/kare4u.provider.images/others/Buzzer-sound.mp3');
     audio.play();
   }
 

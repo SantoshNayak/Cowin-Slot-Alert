@@ -2,12 +2,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
+import {ButtonModule} from 'primeng/button';
+import {RadioButtonModule} from 'primeng/radiobutton';
+import {SelectButtonModule} from 'primeng/selectbutton';
 
 
 
 const files = [
   TableModule,
-  DropdownModule,
+  DropdownModule,  
+  ButtonModule,
+  RadioButtonModule,
+  SelectButtonModule
 ]
 
 @NgModule({

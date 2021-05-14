@@ -1,25 +1,65 @@
-<div class="container text-center">
-    <h1>Check CoWIN vaccine center(s) availability
-    </h1>
-    <p>Checked {{checkedCount}} number of times</p>
-    <img src="../../assets/img/Vaccine-rafiki.png" class="vac-img" alt="">
-    <p-dropdown [options]="allStates" [(ngModel)]="selectedState" class="m-5" (onChange)="onStateSelect()"
-     optionLabel="state_name" [filter]="true" filterBy="state_name"
-     [showClear]="true" placeholder="Select a State">
-    </p-dropdown>
-    <p-dropdown [options]="allCities"  class="m-5" [(ngModel)]="selectedCity"
-     optionLabel="district_name"
-     [filter]="true" filterBy="district_name"
-     [showClear]="true" placeholder="Select a City"
-     ></p-dropdown>
-    {{selectedCity | json}}
+<div class="container ">
+    <div class="text-center">
+        <h1><span class="primary-color">Co-WIN</span> vaccine center(s) Finder
+        </h1>
+        <p>Checked {{checkedCount}} times with Server</p>
+        <p>{{autoClick?'Autocheck Enabled':'Autocheck Disabled'}}</p>
+    </div>
 
-  
-    <div class="search">
-        <p-button label="Search" icon="pi pi-search"  class="m-5" (click)="checkSlot()" [loading]="isLoading"></p-button>
+    <img src="https://s3.amazonaws.com/kare4u.provider.images/Vaccine-rafiki.png" class="vac-img" alt="">
+
+    <div class="text-center">
+        <p-dropdown [options]="allStates" [(ngModel)]="selectedState" class="m-5" (onChange)="onStateSelect()"
+            optionLabel="state_name" [filter]="true" filterBy="state_name" [showClear]="true"
+            placeholder="Select a State">
+        </p-dropdown>
+        <p-dropdown [options]="allCities" class="m-5" [(ngModel)]="selectedCity" optionLabel="district_name"
+            [filter]="true" filterBy="district_name" [showClear]="true" placeholder="Select a City"></p-dropdown>
+
+
+        <p>Choose an age group</p>
+        <p-selectButton [options]="categories" [(ngModel)]="selectedAgeGroup" optionLabel="name"></p-selectButton>
+        <div class="search">
+            <p-button label="Search" icon="pi pi-search" class="m-5"
+                [disabled]="!selectedState || !selectedCity || !selectedAgeGroup" (click)="checkSlot()"
+                [loading]="isLoading">
+            </p-button>
+        </div>
+
+        <p-table [columns]="cols" [value]="availabledata" styleClass="p-datatable-responsive-demo"
+            *ngIf="availabledata.length">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr>
+                    <td *ngFor="let col of columns">
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+    </div>
+    <div class="how-works">
+        <h2>How it works</h2>
+        <ul>
+            <li>Choose State and City</li>
+            <li>Choose Age Group and Hit Search</li>
+            <li>The script will check with Co-Win Server every 30 second to find a slot</li>
+            <li>You need to keep the tab active and while its searching you can do your other stuffs (Just keep the browser tab active)</li>
+            <li>Once the script gets a slot it will make a buzzer sound</li>
+            <li>Then you need to come to script tab</li>
+            <li>There you will see where the slot is available</li>
+            <li>Go to Co-Win Portal/App and book slot for the same center</li>
+        </ul>
     </div>
 
     <!-- <button (click)="play()">Play</button> -->
-    {{availabledata| json}}
+    <!-- {{availabledata| json}} -->
 </div>
 <h2></h2>
